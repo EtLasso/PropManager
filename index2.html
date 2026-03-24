@@ -3,34 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PropManager Präsentation</title>
+    <title>PropManager · Präsentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <style>
-      :root {
-        --bg: #f5efe5;
-        --bg-alt: #fffaf3;
-        --panel: rgba(255, 255, 255, 0.82);
-        --panel-strong: #ffffff;
-        --text: #1d1a17;
-        --muted: #6a6258;
-        --line: rgba(62, 45, 24, 0.12);
-        --gold: #b86a16;
-        --gold-dark: #8c4a09;
-        --blue: #1e4fa3;
-        --green: #17643f;
-        --shadow: 0 24px 60px rgba(60, 41, 12, 0.14);
-        --radius-xl: 28px;
-        --radius-lg: 20px;
-        --radius-md: 14px;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
       }
 
-      * {
-        box-sizing: border-box;
+      :root {
+        --gold: #b45309;
+        --gold2: #d97706;
+        --text-soft: rgba(255, 255, 255, 0.58);
+        --line: rgba(255, 255, 255, 0.08);
+        --line-strong: rgba(255, 255, 255, 0.14);
+        --panel: rgba(255, 255, 255, 0.04);
+        --panel-2: rgba(255, 255, 255, 0.06);
+        --ease: cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       html {
@@ -38,13 +34,11 @@
       }
 
       body {
-        margin: 0;
         font-family: "DM Sans", sans-serif;
-        color: var(--text);
-        background:
-          radial-gradient(circle at top left, rgba(184, 106, 22, 0.16), transparent 32%),
-          radial-gradient(circle at top right, rgba(30, 79, 163, 0.12), transparent 28%),
-          linear-gradient(180deg, #fbf6ef 0%, #f3ebdf 100%);
+        background: linear-gradient(160deg, #1c1917 0%, #292524 40%, #1c1917 100%);
+        color: white;
+        min-height: 100vh;
+        overflow-x: hidden;
       }
 
       a {
@@ -52,715 +46,842 @@
         text-decoration: none;
       }
 
+      .page {
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cover-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+      }
+
+      .cover-orbs {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.15;
+        animation: orbFloat 20s ease-in-out infinite alternate;
+      }
+
+      .orb1 {
+        width: 800px;
+        height: 800px;
+        background: var(--gold);
+        top: -300px;
+        right: -200px;
+      }
+
+      .orb2 {
+        width: 600px;
+        height: 600px;
+        background: #1e40af;
+        bottom: -200px;
+        left: -100px;
+        animation-delay: -10s;
+      }
+
+      .orb3 {
+        width: 420px;
+        height: 420px;
+        background: #0f766e;
+        top: 42%;
+        left: 36%;
+        opacity: 0.08;
+        animation-delay: -5s;
+      }
+
       .shell {
-        width: min(1180px, calc(100% - 32px));
+        width: min(1240px, calc(100% - 32px));
         margin: 0 auto;
+        position: relative;
+        z-index: 2;
       }
 
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        backdrop-filter: blur(18px);
-        background: rgba(251, 246, 239, 0.72);
-        border-bottom: 1px solid var(--line);
-      }
-
-      .topbar-inner {
+      .cover-nav {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 18px 0;
+        padding: 24px 0;
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(20px);
       }
 
-      .brand {
+      .cover-logo {
         display: flex;
         align-items: center;
         gap: 12px;
       }
 
-      .brand-mark {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(135deg, var(--gold), #e39a3b);
-        color: white;
-        font-family: "Playfair Display", serif;
-        font-weight: 800;
-      }
-
-      .brand-name {
-        font-family: "Playfair Display", serif;
-        font-size: 1.25rem;
-        font-weight: 700;
-      }
-
-      .brand-sub {
-        font-size: 0.72rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-
-      .nav {
+      .cover-logo-mark {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--gold), var(--gold2));
+        border-radius: 10px;
         display: flex;
         align-items: center;
-        gap: 10px;
+        justify-content: center;
+        font-family: "Playfair Display", serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: white;
+      }
+
+      .cover-logo-name {
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+
+      .cover-logo-tagline {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.34);
+        letter-spacing: 2px;
+        margin-top: 1px;
+      }
+
+      .cover-nav-space {
+        flex: 1;
+      }
+
+      .cover-nav-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         flex-wrap: wrap;
       }
 
-      .nav a,
-      .btn {
-        border-radius: 999px;
-        padding: 11px 16px;
-        font-size: 0.95rem;
+      .cover-nav-link {
+        padding: 8px 18px;
+        border-radius: 8px;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.56);
+        transition: color 0.2s ease;
       }
 
-      .nav a {
-        color: var(--muted);
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        border: 1px solid transparent;
-        font-weight: 700;
-      }
-
-      .btn-primary {
-        background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      .cover-nav-link:hover {
         color: white;
-        box-shadow: 0 16px 32px rgba(184, 106, 22, 0.22);
       }
 
-      .btn-secondary {
-        background: rgba(255, 255, 255, 0.66);
-        border-color: var(--line);
+      .btn-login-nav,
+      .btn-hero-primary,
+      .btn-hero-secondary {
+        border: none;
+        cursor: pointer;
+        transition: all 0.25s var(--ease);
+      }
+
+      .btn-login-nav {
+        padding: 9px 22px;
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: white;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .btn-login-nav:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
       }
 
       .hero {
-        padding: 72px 0 44px;
-      }
-
-      .hero-grid {
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 28px;
+        display: flex;
         align-items: center;
+        gap: 60px;
+        padding: 64px 0 44px;
       }
 
-      .eyebrow {
+      .hero-left {
+        flex: 1;
+        max-width: 600px;
+      }
+
+      .hero-eyebrow {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        margin-bottom: 18px;
-        padding: 8px 14px;
-        border-radius: 999px;
-        background: rgba(184, 106, 22, 0.1);
-        color: var(--gold-dark);
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
+        padding: 6px 14px;
+        border-radius: 100px;
+        background: rgba(180, 83, 9, 0.15);
+        border: 1px solid rgba(180, 83, 9, 0.3);
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: var(--gold2);
+        font-weight: 500;
+        margin-bottom: 28px;
+        animation: fadeUp 0.6s var(--ease) 0.1s both;
       }
 
-      .eyebrow::before {
+      .hero-eyebrow::before {
         content: "";
-        width: 8px;
-        height: 8px;
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
-        background: var(--gold);
+        background: var(--gold2);
+        box-shadow: 0 0 6px var(--gold2);
       }
 
-      h1 {
-        margin: 0;
+      .hero-title {
         font-family: "Playfair Display", serif;
-        font-size: clamp(3rem, 6vw, 5.8rem);
-        line-height: 0.96;
-        letter-spacing: -0.03em;
+        font-size: clamp(42px, 5.5vw, 72px);
+        font-weight: 700;
+        line-height: 1.08;
+        margin-bottom: 22px;
+        animation: fadeUp 0.6s var(--ease) 0.2s both;
       }
 
-      h1 span {
-        color: var(--gold-dark);
+      .hero-title em {
+        font-style: normal;
+        color: var(--gold2);
       }
 
-      .hero-copy p {
-        max-width: 58ch;
-        margin: 22px 0 28px;
-        font-size: 1.08rem;
+      .hero-subtitle {
+        font-size: 18px;
+        font-weight: 300;
+        color: var(--text-soft);
         line-height: 1.7;
-        color: var(--muted);
+        margin-bottom: 36px;
+        animation: fadeUp 0.6s var(--ease) 0.3s both;
       }
 
       .hero-actions {
         display: flex;
-        gap: 12px;
+        align-items: center;
+        gap: 14px;
         flex-wrap: wrap;
+        animation: fadeUp 0.6s var(--ease) 0.4s both;
       }
 
-      .hero-points {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
+      .btn-hero-primary {
+        padding: 15px 32px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--gold), var(--gold2));
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        box-shadow: 0 8px 32px rgba(180, 83, 9, 0.4);
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+      }
+
+      .btn-hero-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(180, 83, 9, 0.5);
+      }
+
+      .btn-hero-secondary {
+        padding: 15px 28px;
+        border-radius: 12px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: white;
+        font-size: 15px;
+        font-weight: 400;
+      }
+
+      .btn-hero-secondary:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .hero-trust {
+        display: flex;
+        align-items: center;
+        gap: 16px;
         margin-top: 28px;
+        flex-wrap: wrap;
+        animation: fadeUp 0.6s var(--ease) 0.5s both;
       }
 
-      .point {
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.36);
+      }
+
+      .trust-item::before {
+        content: "✓";
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: rgba(21, 128, 61, 0.2);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        color: #22c55e;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .hero-right {
+        flex: 1;
+        max-width: 520px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        animation: fadeIn 1s var(--ease) 0.3s both;
+      }
+
+      .building-showcase {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 24px;
+        backdrop-filter: blur(20px);
+      }
+
+      .building-title {
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: rgba(255, 255, 255, 0.3);
+        margin-bottom: 16px;
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      .building-3d {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 170px;
+        gap: 8px;
+        padding: 0 20px;
+      }
+
+      .b3d-tower {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 3px;
+        flex: 1;
+      }
+
+      .b3d-floor {
+        border-radius: 4px 4px 0 0;
+        display: flex;
+        gap: 2px;
+        padding: 2px;
+        animation: floorAppear 0.5s var(--ease) both;
+      }
+
+      .b3d-win {
+        flex: 1;
+        height: 10px;
+        border-radius: 2px;
+        transition: transform 0.2s ease;
+      }
+
+      .b3d-win:hover {
+        transform: scaleY(1.2);
+      }
+
+      .gold-floor {
+        background: linear-gradient(180deg, #d97706, #92400e);
+      }
+
+      .blue-floor {
+        background: linear-gradient(180deg, #3b82f6, #1e40af);
+      }
+
+      .green-floor {
+        background: linear-gradient(180deg, #14b8a6, #0f766e);
+      }
+
+      .gold-floor .b3d-win {
+        background: rgba(253, 230, 138, 0.9);
+      }
+
+      .blue-floor .b3d-win {
+        background: rgba(219, 234, 254, 0.92);
+      }
+
+      .green-floor .b3d-win {
+        background: rgba(204, 251, 241, 0.92);
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        animation: fadeUp 0.6s var(--ease) 0.6s both;
+      }
+
+      .hstat {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 14px;
         padding: 16px;
-        border-radius: var(--radius-md);
-        background: rgba(255, 255, 255, 0.62);
-        border: 1px solid var(--line);
+        text-align: center;
       }
 
-      .point strong {
+      .hstat-val {
+        font-family: "Playfair Display", serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--gold2);
         display: block;
-        font-size: 1.3rem;
+        line-height: 1;
+        margin-bottom: 5px;
+      }
+
+      .hstat-lbl {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.35);
+        letter-spacing: 1px;
+      }
+
+      .cover-features {
+        padding: 48px 0 60px;
+        border-top: 1px solid var(--line);
+        position: relative;
+        z-index: 2;
+      }
+
+      .feat-title {
+        font-family: "Playfair Display", serif;
+        font-size: 13px;
+        letter-spacing: 3px;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 28px;
+      }
+
+      .feat-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+      }
+
+      .feat-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        padding: 18px 16px;
+        transition: all 0.25s var(--ease);
+        animation: fadeUp 0.5s var(--ease) both;
+      }
+
+      .feat-card:hover {
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 255, 255, 0.12);
+        transform: translateY(-3px);
+      }
+
+      .feat-icon {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+
+      .feat-name {
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.84);
         margin-bottom: 4px;
       }
 
-      .point span {
-        color: var(--muted);
-        font-size: 0.92rem;
+      .feat-desc {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.32);
+        line-height: 1.5;
       }
 
-      .stage {
+      .presentation-strip {
+        padding: 0 0 70px;
         position: relative;
-        padding: 28px;
-        border-radius: var(--radius-xl);
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.74)),
-          linear-gradient(135deg, rgba(184, 106, 22, 0.08), rgba(30, 79, 163, 0.08));
-        border: 1px solid rgba(62, 45, 24, 0.08);
-        box-shadow: var(--shadow);
-        overflow: hidden;
+        z-index: 2;
       }
 
-      .stage::after {
-        content: "";
-        position: absolute;
-        inset: auto -60px -60px auto;
-        width: 220px;
-        height: 220px;
-        border-radius: 50%;
-        background: rgba(184, 106, 22, 0.08);
-      }
-
-      .mini-window {
-        position: relative;
-        z-index: 1;
-        background: #171411;
+      .presentation-box {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--line-strong);
         border-radius: 22px;
-        padding: 18px;
-        color: white;
+        padding: 26px;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+        backdrop-filter: blur(18px);
       }
 
-      .window-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+      .pb-title {
+        font-family: "Playfair Display", serif;
+        font-size: 30px;
+        margin-bottom: 12px;
+      }
+
+      .pb-copy {
+        color: var(--text-soft);
+        line-height: 1.75;
         margin-bottom: 18px;
       }
 
-      .dots {
-        display: flex;
-        gap: 7px;
-      }
-
-      .dots span {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-      }
-
-      .window-title {
-        font-size: 0.82rem;
-        color: rgba(255, 255, 255, 0.62);
-      }
-
-      .mini-grid {
+      .pb-list {
         display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 14px;
+        gap: 10px;
       }
 
-      .card-dark,
-      .card-light {
-        border-radius: 18px;
-        padding: 16px;
-      }
-
-      .card-dark {
-        background: linear-gradient(180deg, #24201c, #1b1815);
+      .pb-item {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.06);
       }
 
-      .card-light {
-        background: #f7efe2;
-        color: var(--text);
-      }
-
-      .kpis {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-        margin-top: 14px;
-      }
-
-      .kpi {
-        padding: 14px;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.06);
-      }
-
-      .kpi strong {
-        display: block;
-        font-size: 1.2rem;
-      }
-
-      .kpi span {
-        font-size: 0.82rem;
-        color: rgba(255, 255, 255, 0.62);
-      }
-
-      .building {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        align-items: end;
-        min-height: 230px;
-      }
-
-      .tower {
-        display: grid;
-        gap: 6px;
-      }
-
-      .floor {
-        height: 18px;
-        border-radius: 6px;
-        background: linear-gradient(90deg, #d98e34, #f1c36e);
-      }
-
-      .tower:nth-child(2) .floor,
-      .tower:nth-child(4) .floor {
-        background: linear-gradient(90deg, #3a6cc7, #78a2ef);
-      }
-
-      section {
-        padding: 28px 0;
-      }
-
-      .section-head {
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        gap: 18px;
-        margin-bottom: 20px;
-      }
-
-      .section-head h2 {
-        margin: 0;
-        font-family: "Playfair Display", serif;
-        font-size: clamp(2rem, 3vw, 3rem);
-      }
-
-      .section-head p {
-        max-width: 58ch;
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.7;
-      }
-
-      .panel-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
-      }
-
-      .panel {
-        padding: 22px;
-        border-radius: var(--radius-lg);
-        background: var(--panel);
-        border: 1px solid var(--line);
-        box-shadow: 0 10px 28px rgba(60, 41, 12, 0.06);
-      }
-
-      .panel h3 {
-        margin: 0 0 10px;
-        font-size: 1.15rem;
-      }
-
-      .panel p {
-        margin: 0 0 14px;
-        color: var(--muted);
-        line-height: 1.65;
-      }
-
-      .tagline {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
-        padding: 7px 11px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.84);
-        border: 1px solid var(--line);
-        color: var(--gold-dark);
-        font-size: 0.78rem;
-        font-weight: 700;
-      }
-
-      .list {
-        display: grid;
-        gap: 10px;
-      }
-
-      .list div {
-        padding: 12px 14px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.56);
-        border: 1px solid rgba(62, 45, 24, 0.08);
-      }
-
-      .list strong {
+      .pb-item strong {
         display: block;
         margin-bottom: 3px;
       }
 
-      .accent-gold {
-        background: linear-gradient(180deg, #fffaf1, #f9ebd0);
+      .pb-item span,
+      .pb-note,
+      .preview-card p {
+        color: rgba(255, 255, 255, 0.56);
       }
 
-      .accent-blue {
-        background: linear-gradient(180deg, #f3f7ff, #e1edff);
-      }
-
-      .accent-green {
-        background: linear-gradient(180deg, #f4fbf7, #dcf2e5);
-      }
-
-      .cta {
-        margin: 28px 0 72px;
-        padding: 28px;
-        border-radius: var(--radius-xl);
-        background: linear-gradient(135deg, #1d1916, #34291d);
-        color: white;
-        box-shadow: var(--shadow);
-      }
-
-      .cta-grid {
+      .preview-stack {
         display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 18px;
-        align-items: center;
+        gap: 12px;
       }
 
-      .cta h2 {
-        margin: 0 0 10px;
+      .preview-card {
+        border-radius: 16px;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .preview-card strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .preview-metrics {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .metric {
+        border-radius: 12px;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .metric-value {
         font-family: "Playfair Display", serif;
-        font-size: clamp(2rem, 4vw, 3.4rem);
+        color: var(--gold2);
+        font-size: 24px;
+        display: block;
       }
 
-      .cta p {
-        margin: 0;
-        max-width: 54ch;
-        color: rgba(255, 255, 255, 0.72);
-        line-height: 1.7;
+      .metric-label {
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: rgba(255, 255, 255, 0.34);
       }
 
       .footer {
-        padding: 0 0 32px;
-        color: var(--muted);
-        font-size: 0.9rem;
+        padding: 0 0 28px;
+        color: rgba(255, 255, 255, 0.36);
+        font-size: 12px;
+        text-align: center;
+        position: relative;
+        z-index: 2;
       }
 
-      @media (max-width: 980px) {
-        .hero-grid,
-        .mini-grid,
-        .cta-grid,
-        .panel-grid {
-          grid-template-columns: 1fr;
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
         }
-
-        .hero-points {
-          grid-template-columns: 1fr;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
       }
 
-      @media (max-width: 680px) {
-        .topbar-inner {
-          flex-direction: column;
-          align-items: stretch;
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes floorAppear {
+        from {
+          opacity: 0;
+          transform: scaleY(0);
+        }
+        to {
+          opacity: 1;
+          transform: scaleY(1);
+        }
+      }
+
+      @keyframes orbFloat {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(30px, 20px) scale(1.05);
+        }
+      }
+
+      @media (max-width: 1080px) {
+        .hero,
+        .presentation-box {
+          grid-template-columns: 1fr;
+          display: grid;
         }
 
-        .nav {
-          justify-content: space-between;
+        .feat-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 720px) {
+        .cover-nav {
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+
+        .cover-nav-space {
+          display: none;
         }
 
         .hero {
+          gap: 32px;
           padding-top: 40px;
         }
 
-        .stage {
-          padding: 18px;
+        .hero-stats,
+        .preview-metrics,
+        .feat-grid {
+          grid-template-columns: 1fr;
         }
 
-        .mini-window {
-          padding: 14px;
+        .cover-nav-links {
+          width: 100%;
+          justify-content: space-between;
         }
       }
     </style>
   </head>
   <body>
-    <header class="topbar">
-      <div class="shell topbar-inner">
-        <div class="brand">
-          <div class="brand-mark">PM</div>
-          <div>
-            <div class="brand-name">PropManager</div>
-            <div class="brand-sub">Hausverwaltung Präsentation</div>
-          </div>
-        </div>
-        <nav class="nav">
-          <a href="#funktionen">Funktionen</a>
-          <a href="#rollen">Rollen</a>
-          <a href="#einsatz">Einsatz</a>
-          <a class="btn btn-primary" href="#demo">Zur Vorschau</a>
-        </nav>
+    <main class="page">
+      <div class="cover-grid"></div>
+      <div class="cover-orbs">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
       </div>
-    </header>
 
-    <main class="shell">
-      <section class="hero" id="demo">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <div class="eyebrow">Digitale Hausverwaltung</div>
-            <h1>Die Oberfläche für <span>moderne Immobilienprozesse</span>.</h1>
-            <p>
-              Diese Seite ist eine reine Präsentationsansicht von PropManager.
-              Sie zeigt Design, Struktur und Funktionsumfang ohne Login, ohne
-              Backend und ohne operative Daten.
+      <div class="shell">
+        <nav class="cover-nav">
+          <div class="cover-logo">
+            <div class="cover-logo-mark">PM</div>
+            <div>
+              <div class="cover-logo-name">PropManager</div>
+              <div class="cover-logo-tagline">HAUSVERWALTUNG</div>
+            </div>
+          </div>
+          <div class="cover-nav-space"></div>
+          <div class="cover-nav-links">
+            <a class="cover-nav-link" href="#funktionen">Funktionen</a>
+            <a class="cover-nav-link" href="#vorschau">Vorschau</a>
+            <a class="cover-nav-link" href="https://github.com/EtLasso/PropManager">Repository</a>
+            <a class="btn-login-nav" href="https://github.com/EtLasso/PropManager">Projekt ansehen</a>
+          </div>
+        </nav>
+
+        <section class="hero">
+          <div class="hero-left">
+            <div class="hero-eyebrow">DIGITALE IMMOBILIENVERWALTUNG</div>
+            <h1 class="hero-title">
+              Premium-Oberfläche für <em>moderne Hausverwaltung</em>
+            </h1>
+            <p class="hero-subtitle">
+              Diese Präsentationsseite übernimmt die Bildsprache der ursprünglichen
+              PropManager-Startseite, läuft aber bewusst statisch und ohne Backend.
+              Damit bleibt GitHub Pages stabil, während die Produktwirkung erhalten
+              bleibt.
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" href="#funktionen">Funktionen ansehen</a>
-              <a class="btn btn-secondary" href="https://github.com/EtLasso/PropManager">Zum Repository</a>
+              <a class="btn-hero-primary" href="#funktionen">Präsentation ansehen <span>→</span></a>
+              <a class="btn-hero-secondary" href="https://github.com/EtLasso/PropManager">Zum Repository</a>
             </div>
-            <div class="hero-points">
-              <div class="point">
-                <strong>100%</strong>
-                <span>Statische Präsentationsseite</span>
-              </div>
-              <div class="point">
-                <strong>0</strong>
-                <span>Abhängigkeiten zu Supabase und Login</span>
-              </div>
-              <div class="point">
-                <strong>1</strong>
-                <span>Saubere Vorschau für GitHub Pages</span>
-              </div>
+            <div class="hero-trust">
+              <div class="trust-item">Statische Demo für GitHub Pages</div>
+              <div class="trust-item">Kein Login und keine Datenbank nötig</div>
+              <div class="trust-item">Optik nah am Original</div>
             </div>
           </div>
 
-          <div class="stage">
-            <div class="mini-window">
-              <div class="window-top">
-                <div class="dots"><span></span><span></span><span></span></div>
-                <div class="window-title">PropManager Dashboard Preview</div>
-              </div>
-              <div class="mini-grid">
-                <div class="card-dark">
-                  <div style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">
-                    Verwalter Cockpit
-                  </div>
-                  <div style="margin-top: 8px; font-family: 'Playfair Display', serif; font-size: 1.8rem;">
-                    Übersicht mit KPIs, Schäden und Terminen
-                  </div>
-                  <div class="kpis">
-                    <div class="kpi">
-                      <strong>24</strong>
-                      <span>Liegenschaften</span>
-                    </div>
-                    <div class="kpi">
-                      <strong>312</strong>
-                      <span>Wohneinheiten</span>
-                    </div>
-                    <div class="kpi">
-                      <strong>96%</strong>
-                      <span>Auslastung</span>
-                    </div>
-                    <div class="kpi">
-                      <strong>7</strong>
-                      <span>offene Schäden</span>
-                    </div>
-                  </div>
+          <div class="hero-right">
+            <div class="building-showcase">
+              <div class="building-title">DASHBOARD PREVIEW</div>
+              <div class="building-3d">
+                <div class="b3d-tower">
+                  <div class="b3d-floor gold-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor gold-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor gold-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor gold-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
                 </div>
-                <div class="card-light">
-                  <div class="tagline">Visualisierung</div>
-                  <div class="building">
-                    <div class="tower">
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                    </div>
-                    <div class="tower">
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                    </div>
-                    <div class="tower">
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                    </div>
-                    <div class="tower">
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                      <div class="floor"></div>
-                    </div>
-                  </div>
+                <div class="b3d-tower">
+                  <div class="b3d-floor blue-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor blue-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor blue-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor blue-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor blue-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                </div>
+                <div class="b3d-tower">
+                  <div class="b3d-floor green-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor green-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor green-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                </div>
+                <div class="b3d-tower">
+                  <div class="b3d-floor gold-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor gold-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor gold-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
+                  <div class="b3d-floor gold-floor"><div class="b3d-win"></div><div class="b3d-win"></div><div class="b3d-win"></div></div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <section id="funktionen">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Funktionen</div>
-            <h2>Was PropManager präsentiert</h2>
-          </div>
-          <p>
-            Die Präsentationsseite fokussiert auf die sichtbaren Produktbausteine:
-            Verwaltung, Kommunikation, Finanzen und operative Workflows.
-          </p>
-        </div>
-        <div class="panel-grid">
-          <article class="panel accent-gold">
-            <div class="tagline">Objekte</div>
-            <h3>Liegenschaften und Wohneinheiten</h3>
-            <p>
-              Zentrale Objektübersicht mit Status, Auslastung, Mietdaten und
-              strukturierten Detailansichten.
-            </p>
-            <div class="list">
-              <div><strong>Portfolio-Sicht</strong> Mehrere Häuser in einem Überblick.</div>
-              <div><strong>Detailseiten</strong> Einheiten, Kontakte, Verträge und Dokumente.</div>
+            <div class="hero-stats">
+              <div class="hstat">
+                <span class="hstat-val">24</span>
+                <div class="hstat-lbl">LIEGENSCHAFTEN</div>
+              </div>
+              <div class="hstat">
+                <span class="hstat-val">312</span>
+                <div class="hstat-lbl">WOHNEINHEITEN</div>
+              </div>
+              <div class="hstat">
+                <span class="hstat-val">96%</span>
+                <div class="hstat-lbl">AUSLASTUNG</div>
+              </div>
             </div>
-          </article>
+          </div>
+        </section>
 
-          <article class="panel accent-blue">
-            <div class="tagline">Prozesse</div>
-            <h3>Termine, Schäden und Dienstleister</h3>
-            <p>
-              Operative Abläufe werden verständlich aufbereitet und als
-              zusammenhängende Arbeitsoberfläche gezeigt.
-            </p>
-            <div class="list">
-              <div><strong>Schadenserfassung</strong> Von Meldung bis Bearbeitungsstatus.</div>
-              <div><strong>Terminplanung</strong> Eigentümerversammlungen und Wiedervorlagen.</div>
+        <section class="cover-features" id="funktionen">
+          <div class="feat-title">Präsentierte Bereiche</div>
+          <div class="feat-grid">
+            <div class="feat-card" style="animation-delay: 0.1s">
+              <div class="feat-icon">🏛️</div>
+              <div class="feat-name">Liegenschaften</div>
+              <div class="feat-desc">Portfolio, Objekte, Einheiten und Statusinformationen in einem konsistenten Look.</div>
             </div>
-          </article>
-
-          <article class="panel accent-green">
-            <div class="tagline">Finanzen</div>
-            <h3>Mieten, Gebühren und Kennzahlen</h3>
-            <p>
-              Finanzansichten vermitteln die Produktidee ohne echte Buchungsdaten
-              oder Datenbankzugriff zu benötigen.
-            </p>
-            <div class="list">
-              <div><strong>KPI-Karten</strong> Wichtige Zahlen sofort im Blick.</div>
-              <div><strong>Berichte</strong> Einnahmen, Verwaltungsgebühren und Auslastung.</div>
+            <div class="feat-card" style="animation-delay: 0.16s">
+              <div class="feat-icon">📊</div>
+              <div class="feat-name">Dashboard</div>
+              <div class="feat-desc">Kennzahlen, Auslastung und operative Übersicht im Stil der ursprünglichen Startseite.</div>
             </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="rollen">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Rollen</div>
-            <h2>Für mehrere Nutzergruppen gedacht</h2>
+            <div class="feat-card" style="animation-delay: 0.22s">
+              <div class="feat-icon">⚠️</div>
+              <div class="feat-name">Schäden</div>
+              <div class="feat-desc">Meldungen, Prioritäten und Bearbeitungsstatus als Teil der Präsentationslogik.</div>
+            </div>
+            <div class="feat-card" style="animation-delay: 0.28s">
+              <div class="feat-icon">📁</div>
+              <div class="feat-name">Dokumente</div>
+              <div class="feat-desc">Dokumenten- und Vertragsverwaltung als sichtbarer Produktbaustein ohne Live-Daten.</div>
+            </div>
+            <div class="feat-card" style="animation-delay: 0.34s">
+              <div class="feat-icon">💶</div>
+              <div class="feat-name">Finanzen</div>
+              <div class="feat-desc">Mietumsätze, Verwaltungsgebühren und Reportings in einer hochwertigen UI-Präsentation.</div>
+            </div>
           </div>
-          <p>
-            Die Seite zeigt, wie sich ein gemeinsames System für interne und
-            externe Beteiligte präsentieren lässt.
-          </p>
-        </div>
-        <div class="panel-grid">
-          <article class="panel">
-            <h3>Verwalter</h3>
-            <p>Dashboard, Objektverwaltung, Schäden, Verträge und Termine in einer Oberfläche.</p>
-          </article>
-          <article class="panel">
-            <h3>Vermieter</h3>
-            <p>Fokus auf Objekte, Mieterinformationen, Dokumente und Einnahmenübersichten.</p>
-          </article>
-          <article class="panel">
-            <h3>Mieter</h3>
-            <p>Portal-Logik für Wohnung, Zahlungen, Dokumente und Kontaktpunkte zur Verwaltung.</p>
-          </article>
-        </div>
-      </section>
+        </section>
 
-      <section id="einsatz">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Einsatz</div>
-            <h2>Geeignet für Präsentation und Vertrieb</h2>
-          </div>
-          <p>
-            Diese zusätzliche Datei ist bewusst getrennt von der eigentlichen
-            Anwendung und eignet sich daher für Website, Vorstellungsgespräche,
-            Pitches oder Kundentermine.
-          </p>
-        </div>
-        <div class="panel-grid">
-          <article class="panel">
-            <h3>Stabil auf GitHub Pages</h3>
-            <p>Kein Modul-Import in operative Logik, keine Sessions, kein API-Zwang.</p>
-          </article>
-          <article class="panel">
-            <h3>Ohne sensible Daten</h3>
-            <p>Keine Produktivtabellen, keine Logins und keine Backend-Konfiguration notwendig.</p>
-          </article>
-          <article class="panel">
-            <h3>Einfach separat verlinkbar</h3>
-            <p>`index2.html` kann direkt als Präsentations-URL verwendet werden.</p>
-          </article>
-        </div>
-      </section>
+        <section class="presentation-strip" id="vorschau">
+          <div class="presentation-box">
+            <div>
+              <div class="pb-title">Statische Demo statt defekter App-Startseite</div>
+              <p class="pb-copy">
+                Für GitHub Pages ist diese Version bewusst von Login, Supabase und
+                App-Router entkoppelt. Dadurch startet die Seite zuverlässig, behält
+                aber die originale visuelle Richtung von PropManager bei.
+              </p>
+              <div class="pb-list">
+                <div class="pb-item">
+                  <div>✓</div>
+                  <div>
+                    <strong>Originale Bildsprache</strong>
+                    <span>Dunkler Hero, Gold-Akzente, Premium-Typografie und modulare Infokarten.</span>
+                  </div>
+                </div>
+                <div class="pb-item">
+                  <div>✓</div>
+                  <div>
+                    <strong>Nur für Präsentation</strong>
+                    <span>Keine operativen Daten, keine Anmeldemaske und keine sensiblen Inhalte auf GitHub Pages.</span>
+                  </div>
+                </div>
+                <div class="pb-item">
+                  <div>✓</div>
+                  <div>
+                    <strong>Sauber verlinkbar</strong>
+                    <span>README und Startseite zeigen direkt auf diese stabile Präsentationsansicht.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      <section class="cta">
-        <div class="cta-grid">
-          <div>
-            <h2>Separate Vorschau statt operative App.</h2>
-            <p>
-              Wenn du willst, kann ich als Nächstes auch noch die Hauptseite so
-              umstellen, dass GitHub Pages standardmäßig direkt auf diese
-              Präsentationsansicht zeigt.
-            </p>
+            <div class="preview-stack">
+              <div class="preview-card">
+                <strong>Verwalter Cockpit</strong>
+                <p>Immobilien, Schäden, Termine und Verträge in einer zentralen Oberfläche.</p>
+                <div class="preview-metrics">
+                  <div class="metric">
+                    <span class="metric-value">7</span>
+                    <span class="metric-label">OFFENE SCHÄDEN</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-value">18</span>
+                    <span class="metric-label">AKTIVE VERTRÄGE</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-card">
+                <strong>Vermieter Sicht</strong>
+                <p>Einnahmen, Dokumente und Objektstatus als externe Eigentümeransicht.</p>
+              </div>
+              <div class="preview-card">
+                <strong>Mieter Portal</strong>
+                <p>Zahlungen, Dokumente und Kontaktpunkte als aufgeräumte Self-Service-Darstellung.</p>
+              </div>
+            </div>
           </div>
-          <div>
-            <a class="btn btn-primary" href="index2.html">Präsentationsseite öffnen</a>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <div class="footer">
-        PropManager Präsentationsansicht. Statisch, ohne Backend und nur für Demo-Zwecke.
+        <div class="footer">
+          PropManager Präsentationsseite. Statisch, zuverlässig und optisch an der ursprünglichen Startseite orientiert.
+        </div>
       </div>
     </main>
   </body>
