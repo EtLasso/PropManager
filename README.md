@@ -100,13 +100,13 @@ const SUPABASE_ANON_KEY = "your-anon-key";
 
 ## 📄 Lizenz
 
-MIT – Frei nutzbar, veränderbar und für kommerzielle Zwecke
+© 2026 **Ricardo dos Santos** – Alle Rechte vorbehalten.
 
 ---
 
 ## 🤝 Credits
 
-**Entwicklung:** PropManager Team  
+**Entwicklung:** Ricardo dos Santos  
 **Design-System:** Custom, responsive CSS  
 **Assets:** RemixIcon, Google Fonts
 
