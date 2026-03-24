@@ -94,14 +94,6 @@ Dark Mode:   Warme Grays (#0F0E0C–#2E2B28) + Accent-Farben
 ```javascript
 const SUPABASE_URL = "your-supabase-url";
 const SUPABASE_ANON_KEY = "your-anon-key";
-```
-
----
-
-## 📄 Lizenz
-
-© 2026 **Ricardo dos Santos** – Alle Rechte vorbehalten.
-
 ---
 
 ## 🤝 Credits
