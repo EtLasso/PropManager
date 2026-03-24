@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PropManager Präsentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5efe5;
+        --bg-alt: #fffaf3;
+        --panel: rgba(255, 255, 255, 0.82);
+        --panel-strong: #ffffff;
+        --text: #1d1a17;
+        --muted: #6a6258;
+        --line: rgba(62, 45, 24, 0.12);
+        --gold: #b86a16;
+        --gold-dark: #8c4a09;
+        --blue: #1e4fa3;
+        --green: #17643f;
+        --shadow: 0 24px 60px rgba(60, 41, 12, 0.14);
+        --radius-xl: 28px;
+        --radius-lg: 20px;
+        --radius-md: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "DM Sans", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(184, 106, 22, 0.16), transparent 32%),
+          radial-gradient(circle at top right, rgba(30, 79, 163, 0.12), transparent 28%),
+          linear-gradient(180deg, #fbf6ef 0%, #f3ebdf 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(18px);
+        background: rgba(251, 246, 239, 0.72);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--gold), #e39a3b);
+        color: white;
+        font-family: "Playfair Display", serif;
+        font-weight: 800;
+      }
+
+      .brand-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+
+      .brand-sub {
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .nav a,
+      .btn {
+        border-radius: 999px;
+        padding: 11px 16px;
+        font-size: 0.95rem;
+      }
+
+      .nav a {
+        color: var(--muted);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid transparent;
+        font-weight: 700;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+        color: white;
+        box-shadow: 0 16px 32px rgba(184, 106, 22, 0.22);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.66);
+        border-color: var(--line);
+      }
+
+      .hero {
+        padding: 72px 0 44px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 18px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(184, 106, 22, 0.1);
+        color: var(--gold-dark);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--gold);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(3rem, 6vw, 5.8rem);
+        line-height: 0.96;
+        letter-spacing: -0.03em;
+      }
+
+      h1 span {
+        color: var(--gold-dark);
+      }
+
+      .hero-copy p {
+        max-width: 58ch;
+        margin: 22px 0 28px;
+        font-size: 1.08rem;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .hero-points {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .point {
+        padding: 16px;
+        border-radius: var(--radius-md);
+        background: rgba(255, 255, 255, 0.62);
+        border: 1px solid var(--line);
+      }
+
+      .point strong {
+        display: block;
+        font-size: 1.3rem;
+        margin-bottom: 4px;
+      }
+
+      .point span {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .stage {
+        position: relative;
+        padding: 28px;
+        border-radius: var(--radius-xl);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.74)),
+          linear-gradient(135deg, rgba(184, 106, 22, 0.08), rgba(30, 79, 163, 0.08));
+        border: 1px solid rgba(62, 45, 24, 0.08);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .stage::after {
+        content: "";
+        position: absolute;
+        inset: auto -60px -60px auto;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(184, 106, 22, 0.08);
+      }
+
+      .mini-window {
+        position: relative;
+        z-index: 1;
+        background: #171411;
+        border-radius: 22px;
+        padding: 18px;
+        color: white;
+      }
+
+      .window-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+
+      .dots {
+        display: flex;
+        gap: 7px;
+      }
+
+      .dots span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .window-title {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.62);
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 14px;
+      }
+
+      .card-dark,
+      .card-light {
+        border-radius: 18px;
+        padding: 16px;
+      }
+
+      .card-dark {
+        background: linear-gradient(180deg, #24201c, #1b1815);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .card-light {
+        background: #f7efe2;
+        color: var(--text);
+      }
+
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .kpi {
+        padding: 14px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .kpi strong {
+        display: block;
+        font-size: 1.2rem;
+      }
+
+      .kpi span {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.62);
+      }
+
+      .building {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        align-items: end;
+        min-height: 230px;
+      }
+
+      .tower {
+        display: grid;
+        gap: 6px;
+      }
+
+      .floor {
+        height: 18px;
+        border-radius: 6px;
+        background: linear-gradient(90deg, #d98e34, #f1c36e);
+      }
+
+      .tower:nth-child(2) .floor,
+      .tower:nth-child(4) .floor {
+        background: linear-gradient(90deg, #3a6cc7, #78a2ef);
+      }
+
+      section {
+        padding: 28px 0;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 20px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 3vw, 3rem);
+      }
+
+      .section-head p {
+        max-width: 58ch;
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .panel-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .panel {
+        padding: 22px;
+        border-radius: var(--radius-lg);
+        background: var(--panel);
+        border: 1px solid var(--line);
+        box-shadow: 0 10px 28px rgba(60, 41, 12, 0.06);
+      }
+
+      .panel h3 {
+        margin: 0 0 10px;
+        font-size: 1.15rem;
+      }
+
+      .panel p {
+        margin: 0 0 14px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .tagline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding: 7px 11px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.84);
+        border: 1px solid var(--line);
+        color: var(--gold-dark);
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      .list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .list div {
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.56);
+        border: 1px solid rgba(62, 45, 24, 0.08);
+      }
+
+      .list strong {
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      .accent-gold {
+        background: linear-gradient(180deg, #fffaf1, #f9ebd0);
+      }
+
+      .accent-blue {
+        background: linear-gradient(180deg, #f3f7ff, #e1edff);
+      }
+
+      .accent-green {
+        background: linear-gradient(180deg, #f4fbf7, #dcf2e5);
+      }
+
+      .cta {
+        margin: 28px 0 72px;
+        padding: 28px;
+        border-radius: var(--radius-xl);
+        background: linear-gradient(135deg, #1d1916, #34291d);
+        color: white;
+        box-shadow: var(--shadow);
+      }
+
+      .cta-grid {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .cta h2 {
+        margin: 0 0 10px;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+      }
+
+      .cta p {
+        margin: 0;
+        max-width: 54ch;
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.7;
+      }
+
+      .footer {
+        padding: 0 0 32px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .mini-grid,
+        .cta-grid,
+        .panel-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-points {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .topbar-inner {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .nav {
+          justify-content: space-between;
+        }
+
+        .hero {
+          padding-top: 40px;
+        }
+
+        .stage {
+          padding: 18px;
+        }
+
+        .mini-window {
+          padding: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <div class="brand">
+          <div class="brand-mark">PM</div>
+          <div>
+            <div class="brand-name">PropManager</div>
+            <div class="brand-sub">Hausverwaltung Präsentation</div>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="#funktionen">Funktionen</a>
+          <a href="#rollen">Rollen</a>
+          <a href="#einsatz">Einsatz</a>
+          <a class="btn btn-primary" href="#demo">Zur Vorschau</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="hero" id="demo">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">Digitale Hausverwaltung</div>
+            <h1>Die Oberfläche für <span>moderne Immobilienprozesse</span>.</h1>
+            <p>
+              Diese Seite ist eine reine Präsentationsansicht von PropManager.
+              Sie zeigt Design, Struktur und Funktionsumfang ohne Login, ohne
+              Backend und ohne operative Daten.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#funktionen">Funktionen ansehen</a>
+              <a class="btn btn-secondary" href="https://github.com/EtLasso/PropManager">Zum Repository</a>
+            </div>
+            <div class="hero-points">
+              <div class="point">
+                <strong>100%</strong>
+                <span>Statische Präsentationsseite</span>
+              </div>
+              <div class="point">
+                <strong>0</strong>
+                <span>Abhängigkeiten zu Supabase und Login</span>
+              </div>
+              <div class="point">
+                <strong>1</strong>
+                <span>Saubere Vorschau für GitHub Pages</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage">
+            <div class="mini-window">
+              <div class="window-top">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="window-title">PropManager Dashboard Preview</div>
+              </div>
+              <div class="mini-grid">
+                <div class="card-dark">
+                  <div style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">
+                    Verwalter Cockpit
+                  </div>
+                  <div style="margin-top: 8px; font-family: 'Playfair Display', serif; font-size: 1.8rem;">
+                    Übersicht mit KPIs, Schäden und Terminen
+                  </div>
+                  <div class="kpis">
+                    <div class="kpi">
+                      <strong>24</strong>
+                      <span>Liegenschaften</span>
+                    </div>
+                    <div class="kpi">
+                      <strong>312</strong>
+                      <span>Wohneinheiten</span>
+                    </div>
+                    <div class="kpi">
+                      <strong>96%</strong>
+                      <span>Auslastung</span>
+                    </div>
+                    <div class="kpi">
+                      <strong>7</strong>
+                      <span>offene Schäden</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-light">
+                  <div class="tagline">Visualisierung</div>
+                  <div class="building">
+                    <div class="tower">
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                    </div>
+                    <div class="tower">
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                    </div>
+                    <div class="tower">
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                    </div>
+                    <div class="tower">
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                      <div class="floor"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="funktionen">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Funktionen</div>
+            <h2>Was PropManager präsentiert</h2>
+          </div>
+          <p>
+            Die Präsentationsseite fokussiert auf die sichtbaren Produktbausteine:
+            Verwaltung, Kommunikation, Finanzen und operative Workflows.
+          </p>
+        </div>
+        <div class="panel-grid">
+          <article class="panel accent-gold">
+            <div class="tagline">Objekte</div>
+            <h3>Liegenschaften und Wohneinheiten</h3>
+            <p>
+              Zentrale Objektübersicht mit Status, Auslastung, Mietdaten und
+              strukturierten Detailansichten.
+            </p>
+            <div class="list">
+              <div><strong>Portfolio-Sicht</strong> Mehrere Häuser in einem Überblick.</div>
+              <div><strong>Detailseiten</strong> Einheiten, Kontakte, Verträge und Dokumente.</div>
+            </div>
+          </article>
+
+          <article class="panel accent-blue">
+            <div class="tagline">Prozesse</div>
+            <h3>Termine, Schäden und Dienstleister</h3>
+            <p>
+              Operative Abläufe werden verständlich aufbereitet und als
+              zusammenhängende Arbeitsoberfläche gezeigt.
+            </p>
+            <div class="list">
+              <div><strong>Schadenserfassung</strong> Von Meldung bis Bearbeitungsstatus.</div>
+              <div><strong>Terminplanung</strong> Eigentümerversammlungen und Wiedervorlagen.</div>
+            </div>
+          </article>
+
+          <article class="panel accent-green">
+            <div class="tagline">Finanzen</div>
+            <h3>Mieten, Gebühren und Kennzahlen</h3>
+            <p>
+              Finanzansichten vermitteln die Produktidee ohne echte Buchungsdaten
+              oder Datenbankzugriff zu benötigen.
+            </p>
+            <div class="list">
+              <div><strong>KPI-Karten</strong> Wichtige Zahlen sofort im Blick.</div>
+              <div><strong>Berichte</strong> Einnahmen, Verwaltungsgebühren und Auslastung.</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="rollen">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Rollen</div>
+            <h2>Für mehrere Nutzergruppen gedacht</h2>
+          </div>
+          <p>
+            Die Seite zeigt, wie sich ein gemeinsames System für interne und
+            externe Beteiligte präsentieren lässt.
+          </p>
+        </div>
+        <div class="panel-grid">
+          <article class="panel">
+            <h3>Verwalter</h3>
+            <p>Dashboard, Objektverwaltung, Schäden, Verträge und Termine in einer Oberfläche.</p>
+          </article>
+          <article class="panel">
+            <h3>Vermieter</h3>
+            <p>Fokus auf Objekte, Mieterinformationen, Dokumente und Einnahmenübersichten.</p>
+          </article>
+          <article class="panel">
+            <h3>Mieter</h3>
+            <p>Portal-Logik für Wohnung, Zahlungen, Dokumente und Kontaktpunkte zur Verwaltung.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="einsatz">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Einsatz</div>
+            <h2>Geeignet für Präsentation und Vertrieb</h2>
+          </div>
+          <p>
+            Diese zusätzliche Datei ist bewusst getrennt von der eigentlichen
+            Anwendung und eignet sich daher für Website, Vorstellungsgespräche,
+            Pitches oder Kundentermine.
+          </p>
+        </div>
+        <div class="panel-grid">
+          <article class="panel">
+            <h3>Stabil auf GitHub Pages</h3>
+            <p>Kein Modul-Import in operative Logik, keine Sessions, kein API-Zwang.</p>
+          </article>
+          <article class="panel">
+            <h3>Ohne sensible Daten</h3>
+            <p>Keine Produktivtabellen, keine Logins und keine Backend-Konfiguration notwendig.</p>
+          </article>
+          <article class="panel">
+            <h3>Einfach separat verlinkbar</h3>
+            <p>`index2.html` kann direkt als Präsentations-URL verwendet werden.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div class="cta-grid">
+          <div>
+            <h2>Separate Vorschau statt operative App.</h2>
+            <p>
+              Wenn du willst, kann ich als Nächstes auch noch die Hauptseite so
+              umstellen, dass GitHub Pages standardmäßig direkt auf diese
+              Präsentationsansicht zeigt.
+            </p>
+          </div>
+          <div>
+            <a class="btn btn-primary" href="index2.html">Präsentationsseite öffnen</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        PropManager Präsentationsansicht. Statisch, ohne Backend und nur für Demo-Zwecke.
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,7 +1,7 @@
-# [PropManager](https://etlasso.github.io/PropManager/) - UI-Index
+# [PropManager](https://etlasso.github.io/PropManager/) - Präsentationsseite
 
-> Premium-Frontend fuer moderne Hausverwaltung
-> Eine elegante, responsive HTML5-Schnittstelle mit Dark-Mode-Unterstuetzung.
+> Statische Präsentationsseite fuer PropManager
+> Startet direkt ueber GitHub Pages ohne Login, Backend oder operative Daten.
 
 ---
 
@@ -20,7 +20,8 @@
 
 ```text
 PropManager/
-|-- index.html        # Komplette Anwendungs-UI
+|-- index.html        # Startseite fuer GitHub Pages
+|-- index2.html       # Statische Präsentationsseite
 |-- README.md         # Diese Datei
 `-- [Backend-Ordner]  # Nicht in diesem Repo
 ```
@@ -30,19 +31,19 @@ PropManager/
 | Element | Beschreibung |
 |---------|--------------|
 | Cover-Seite | Hero-Landing mit Feature-Highlights |
-| Login-Overlay | Authentifizierung fuer mehrere Rollen |
-| Dashboard | KPI-Cards, Statistiken, Navigation |
-| Komponenten | Cards, Buttons, Tags, Drawer-Menu |
-| Theme-System | Light/Dark Mode mit CSS-Variablen |
+| Präsentationslayout | Statische Vorschau ohne Backend |
+| Dashboard-Vorschau | KPI-Cards, Statistiken, Navigation als Demo |
+| Komponenten | Cards, Buttons, Tags, visuelle Vorschau |
+| Theme-System | Typografie, Farben und Markenbild |
 
 ---
 
-## Rollen und Funktionen
+## Präsentationszweck
 
-- Admin - Vollstaendige Tenantenverwaltung
-- Hausmeister - Immobilien- und Schadenverwaltung
-- Buchhalter - Finanzberichte und Transaktionen
-- Mieter - Portal fuer Dokumenten-Upload und Anfragen
+- Produktvorstellung auf GitHub Pages
+- Stabile Demo ohne Datenbankverbindung
+- Geeignet fuer Portfolio, Vertrieb und Kundentermine
+- Getrennt von operativer App-Logik
 
 ---
 
@@ -54,15 +55,13 @@ PropManager/
    open index.html
    ```
 
-2. Mit Backend verbinden:
-
-- Frontend mit Supabase-Datenbank verbinden
-- `js/supabase-config.js` konfigurieren
-- Backend-Server starten (Node.js/Express)
-
-3. Online aufrufen:
+2. Online aufrufen:
 
 - [PropManager Live-Seite](https://etlasso.github.io/PropManager/)
+
+3. Optional Repository ansehen:
+
+- [GitHub Repository](https://github.com/EtLasso/PropManager)
 
 ---
 
@@ -90,19 +89,14 @@ Dark Mode: Warme Grays (#0F0E0C - #2E2B28) + Accent-Farben
 | Frontend | HTML5, CSS3, Vanilla JavaScript |
 | Icons | RemixIcon-Set |
 | Fonts | Google Fonts CDN |
-| Backend | Supabase (PostgreSQL + Auth) |
-| Deployment | Statisch, z. B. GitHub Pages |
+| Backend | Nicht erforderlich fuer die Präsentationsseite |
+| Deployment | GitHub Pages |
 
 ---
 
 ## Konfiguration
 
-Environment-Variablen in `js/supabase-config.js`:
-
-```javascript
-const SUPABASE_URL = "your-supabase-url";
-const SUPABASE_ANON_KEY = "your-anon-key";
-```
+Fuer die Präsentationsseite ist keine Backend-Konfiguration erforderlich.
 
 ---
 
@@ -122,7 +116,7 @@ Fragen oder Verbesserungen? Oeffne ein Issue oder kontaktiere das Team.
 
 <div align="center">
 
-**[Live Demo](https://etlasso.github.io/PropManager/)** • **[Dokumentation](#)** • **[Issues](../../issues)**
+**[Live Demo](https://etlasso.github.io/PropManager/)** • **[Repository](https://github.com/EtLasso/PropManager)** • **[Issues](../../issues)**
 
 Gebaut fuer intelligente Hausverwaltung.
 
