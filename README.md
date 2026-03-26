@@ -20,8 +20,7 @@
 
 ```text
 PropManager/
-|-- index.html        # Startseite fuer GitHub Pages
-|-- index2.html       # Statische Präsentationsseite
+|-- index.html        # Statische Präsentationsseite (GitHub Pages)
 |-- README.md         # Diese Datei
 `-- [Backend-Ordner]  # Nicht in diesem Repo
 ```
