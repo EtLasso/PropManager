@@ -1,0 +1,15 @@
+node_modules/
+.vs/
+.claude/
+*.log
+
+# App-Dateien - nur lokal, NICHT auf GitHub
+app.html
+server.js
+START_SERVER.bat
+package.json
+package-lock.json
+sql/
+js/
+PROJEKT_ANWEISUNG.md
+app_original_index.html
